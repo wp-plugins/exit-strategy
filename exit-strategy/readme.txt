@@ -6,7 +6,7 @@ Requires at least: 3.0
 Tested up to: 3.2.1
 Stable tag: 1.5
 
-Redirect outgoing links to an Exit Page. Design your exit page for revenues and bookmarks while protecting your SEO with nofollow links
+design your Exit Page, use ads & social links, visitors clicking outgoing links will pass through it. Tune your exit page for maximum profit!
 
 == Description ==
 
