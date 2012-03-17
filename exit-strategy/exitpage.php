@@ -2,14 +2,14 @@
 /**
  * @package Wordpress Exit Strategy
  * @author Bouzid Nazim Zitouni
- * @version 1.05
+ * @version 1.15
  */
 /*
 Plugin Name: Wordpress Exit Strategy
 Plugin URI: http://angrybyte.com/wordpress-plugins/wordpress-exit-strategy/
 Description: Exit Strategy will pass all outgoing links from your site through a nofollow link to an exit page before finally being redirected to the external link. You may place anything in your exit page: Ads, Subscribtion buttons, etc. Using Wordpress Exit Strategy you improve your SEO score by not linking directly to external pages, you get more subscribers & more revenues if you use Ads.
 Author: Bouzid Nazim Zitouni
-Version: 1.05
+Version: 1.15
 Author URI: http://angrybyte.com
 */
 
@@ -85,20 +85,29 @@ echo <<<EOFT
 <li><p style="color: gray;">%post+1% will be replaced by a Google +1 button for your post. (Pro! Feature)</p></li>
 <li><p style="color: gray;">%sitelike% will be replaced by a Facebook Like button for your site. (Pro! Feature)</p></li>
 <li><p style="color: gray;">%postlike% will be replaced by a Facebook Like button for your post. (Pro! Feature)</p></li>
+<li><p style="color: gray;"><b>%sitetweet%</b> will be replaced by a Twitter button for your site. (Pro! Feature)</p></li>
+<li><p style="color: gray;"><b>%posttweet%</b> will be replaced by a Twitter button for your post. (Pro! Feature)</p></li>
 <li>HTML and javascript are allowed<br /></li>
  
 </tr>
 <tr>
 <td class="first b">Redirect delay in seconds</td><td class="t options"><input disabled="disabled" type="text" name='delay' value='10 (Editable in Pro!)' /></td></tr><tr>
 <td>  Auto redirection.</td><td class="t options"><input disabled="disabled" type='checkbox' value='1' $chkd name='autoredirect' /> Enable auto redirection after the end of the delay (Can be disabled in Pro!)</td></tr><tr><td>
- redirect external</td><td class="t options"><input type='checkbox' value='1' $chkd2 name='redirectpar' /> Redirect external links to exit pages to their parent post</td></tr><tr><td>
-End of count Message.</td><td class="t options"><input type="text" size='150' name='eoc' disabled="disabled" value='(Pro! Feature)' /><br /> Display this message when the %count% counter runs out (HTML allowed , can include %link%)</td></tr><tr><td>
-Excluded pages.</td><td class="t options"><input type="text" size='150' name='excl' disabled="disabled" value='(Pro! Feature)' /><br /> enter to post IDs to be excluded from your exit page, useful for your sales or affiliate pages. Separate by commas ex: 3,55,153
-</td></tr><tr><td><input type='submit' value='save' /></form></td></tr>
+ redirect external</td><td class="t options"><input type='checkbox' value='1' $chkd2 name='redirectpar' /> Redirect external links to exit pages to their parent post</td></tr>
+ <tr><td>
+ Process entire pages</td><td class="t options"><input type='checkbox' disabled="disabled" value='0'   />  redirect links in the entire page including widgets and footer, or just the post contents (Pro! Feature)</td></tr>
+ 
+ <tr><td>
+End of count Message.</td><td class="t options"><input type="text" size='150' name='eoc' disabled="disabled" value='(Pro! Feature)' /><br /> Display this message when the %count% counter runs out (HTML allowed , can include %link%)</td></tr>
+<tr><td>Excluded pages.</td><td class="t options"><input type="text" size='150' name='excl' disabled="disabled" value='(Pro! Feature)' /><br /> enter to post IDs to be excluded from your exit page, useful for your sales or affiliate pages. Separate by commas ex: 3,55,153
+</td></tr>
+<tr><td>
+Excluded Links.</td><td class="t options"><textarea disabled="disabled" cols='100' rows='20'>(Pro! Feature)</textarea><br /> Enter the links you wish to exclude from your exit strategy. each link is a separate line. Excluding a website will exclude all pages within it, and excluding a page will not exclude the rest of the website.</td></tr>
+<tr><td><input type='submit' value='save' /></form></td></tr>
 </tbody>
 </table>
 </div></div>
-</div></td><td>
+</div></td><td VALIGN="TOP">
 <div class="metabox-holder" />
     <div  class="postbox gdrgrid frontleft">
 <h3 class="hndle">
@@ -106,9 +115,9 @@ Excluded pages.</td><td class="t options"><input type="text" size='150' name='ex
 </h3>
 <div class="inside">
 <div class="table">
-<table>
+<table >
 <tbody>
-<tr class="first">
+<tr class="first" VALIGN="TOP">
 <td class="first b">Get <a href="http://angrybyte.com/wordpress-plugins/wordpress-exit-strategy/">Wordpress Exit Strategy Pro!</a> and unlock the full potential of your exit pages.
 <ul>
 <li ><b style="color: red; ">Optional auto-redirection:</b> Auto redirect, or just make the link appear after the count down.</li>
@@ -116,7 +125,8 @@ Excluded pages.</td><td class="t options"><input type="text" size='150' name='ex
 <li><b style="color: red;">Customizable redirection delay:</b> Plan your exit strategy! easily change how long your visitors will wait before they leave your site.</li>
 <li><b style="color: red;">Make your exceptions:</b> Select the posts to exclude from your Exit Strategy. Make it easier for your visitors to exit from selected posts, like product sale pages</li>
 </ul>
-<h2><a href="https://secure.avangate.com/order/checkout.php?PRODS=4553833&QTY=1&CART=1">Get Exit Strategy Pro! Now</a></h2>
+<h2><a href="http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte">Get Exit Strategy Pro! Now</a></h2>
+<a href="http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte"><img src="http://0.s3.envato.com/files/19325524/screenshot2.png" style="width:100%" alt="An exit page"/></a>
 </td></tr></tbody></table></div></div></div>
 
 <div class="metabox-holder" />
@@ -220,7 +230,7 @@ function replacelinks($content){
     $d= str_ireplace("%link%",$url,$d); 
        
      $content = stripcslashes($d);
-     $content .= "<br / ><br / ><p style ='color: red;text-align: center;'><b>Exit page powered by <a href='https://secure.avangate.com/order/product.php?PRODS=4553833&QTY=1'> Wordpress Exit Strategy. </a></b></p>";
+     $content .= "<br / ><br / ><p style ='color: red;text-align: center;'><b>Exit page powered by <a href='http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte'> Wordpress Exit Strategy. </a></b></p>";
      return $content;
  }
 
