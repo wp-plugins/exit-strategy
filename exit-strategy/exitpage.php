@@ -1,20 +1,23 @@
 <?php
+
 /**
  * @package Wordpress Exit Strategy
  * @author Bouzid Nazim Zitouni
- * @version 1.15
+ * @version 1.2
  */
 /*
 Plugin Name: Wordpress Exit Strategy
 Plugin URI: http://angrybyte.com/wordpress-plugins/wordpress-exit-strategy/
 Description: Exit Strategy will pass all outgoing links from your site through a nofollow link to an exit page before finally being redirected to the external link. You may place anything in your exit page: Ads, Subscribtion buttons, etc. Using Wordpress Exit Strategy you improve your SEO score by not linking directly to external pages, you get more subscribers & more revenues if you use Ads.
 Author: Bouzid Nazim Zitouni
-Version: 1.15
+Version: 1.2
 Author URI: http://angrybyte.com
 */
 
 
-add_option("exitpagecontents", 'Thank you for your visit, You`ll be redirected in %n% seconds <br> <a href="%link%">Click here if you are not redirected automatically</a>', 'Contents of the Exit page', 'yes');
+add_option("exitpagecontents",
+    'Thank you for your visit, You`ll be redirected in %n% seconds <br> <a href="%link%">Click here if you are not redirected automatically</a>',
+    'Contents of the Exit page', 'yes');
 add_option("exitpagedelay", '10', 'yes');
 add_option("autoredirect", '1', 'yes');
 add_option("countmessage", '', 'yes');
@@ -32,27 +35,32 @@ function exitpageadmin()
 function exit_page_admin()
 {
 
-  if ($_POST['xx']){
-    update_option('exitpagecontents', $_POST['xx']);
-    update_option('redirecttoparent', $_POST['redirectpar']);
+    if ($_POST['xx'])
+    {
+        update_option('exitpagecontents', $_POST['xx']);
+        update_option('redirecttoparent', $_POST['redirectpar']);
 
-  }
-    $oldtemp= stripcslashes(get_option("exitpagecontents"));
-  $chkd=1;
-  $chkd2=get_option("redirecttoparent");
-  if ($chkd) {
-                $chkd = "checked='checked'";
+    }
+    $oldtemp = stripcslashes(get_option("exitpagecontents"));
+    $chkd = 1;
+    $chkd2 = get_option("redirecttoparent");
+    if ($chkd)
+    {
+        $chkd = "checked='checked'";
 
-            } else {
-                $chkd = "";
-            }
-              if ($chkd2) {
-                $chkd2 = "checked='checked'";
+    } else
+    {
+        $chkd = "";
+    }
+    if ($chkd2)
+    {
+        $chkd2 = "checked='checked'";
 
-            } else {
-                $chkd2 = "";
-            }
-    echo <<<EOFT
+    } else
+    {
+        $chkd2 = "";
+    }
+    echo <<< EOFT
     <h1> Wordpress Exit Strategy</h1>
     <table><tr><td width="70%">
     <div class="metabox-holder" />
@@ -68,13 +76,15 @@ function exit_page_admin()
 <td class="first b">Exit Page Contents</td>
 <td class="t options"><Form method ='post' action='$serv' ><input type='hidden' value='fit' name='fit' id='fit' />
 EOFT;
-if(function_exists(wp_editor)){
- wp_editor( $oldtemp, "xx" );   
-}else{
-    echo "<textarea name='xx' cols='150' rows='20'>$oldtemp</textarea>";
-}
+    if (function_exists(wp_editor))
+    {
+        wp_editor($oldtemp, "xx");
+    } else
+    {
+        echo "<textarea name='xx' cols='150' rows='20'>$oldtemp</textarea>";
+    }
 
-echo <<<EOFT
+    echo <<< EOFT
 
   <br/>
   <ul>
@@ -162,112 +172,128 @@ EOFT;
 function autoredirect()
 {
     global $post;
-    if($_GET['xurl']){
+    if ($_GET['xurl'])
+    {
         $referer = $_SERVER['HTTP_REFERER'];
-        $myurl=get_option('siteurl');
-        $redirecting = get_option('autoredirect');        
+        $myurl = get_option('siteurl');
+        $redirecting = get_option('autoredirect');
         //Just a security measure
-        $m1 = strpos( strtolower(" " .$referer), strtolower($myurl));
-           if($referer ==''){
-            $m1=1;
+        $m1 = strpos(strtolower(" " . $referer), strtolower($myurl));
+        if ($referer == '')
+        {
+            $m1 = 1;
         }
- $url=$_GET['xurl'];
- $url=urldecode($url);
-  $m2 = strpos( " " .$url, "<");
- $m3 = strpos( " " .$url, "$");
-  $m4 = strpos( " " .$url, "'");
-  $m5 = strpos( " " .$url, '"');
- if(!(($m2 || $m3 || $m4 || $m5)) && $m1 == 1 && $redirecting){
-    
-    echo "<META HTTP-EQUIV='refresh' 
-CONTENT='10;URL=$url'>"; 
- }elseif($m1 != 1){
-    $chkd2=get_option("redirecttoparent");
-    //redirect external links to exit pages to their parent posts
-    if($chkd2){
-        $pageurl=get_permalink($post->ID);
-    echo "<META HTTP-EQUIV='refresh' 
-CONTENT='0;URL=$pageurl'>"; 
+        $url = $_GET['xurl'];
+        $url = urldecode($url);
+        $m2 = strpos(" " . $url, "<");
+        $m3 = strpos(" " . $url, "$");
+        $m4 = strpos(" " . $url, "'");
+        $m5 = strpos(" " . $url, '"');
+        if (!(($m2 || $m3 || $m4 || $m5)) && $m1 == 1 && $redirecting)
+        {
+
+            echo "<META HTTP-EQUIV='refresh' 
+CONTENT='10;URL=$url'>";
+        } elseif ($m1 != 1)
+        {
+            $chkd2 = get_option("redirecttoparent");
+            //redirect external links to exit pages to their parent posts
+            if ($chkd2)
+            {
+                $pageurl = get_permalink($post->ID);
+                echo "<META HTTP-EQUIV='refresh' 
+CONTENT='0;URL=$pageurl'>";
+            }
+        }
+
+
     }
- }
-          
-        
-    }
- 
+
 }
 
-function replacelinks($content){
-    if($_GET['xurl']){
-                $referer = $_SERVER['HTTP_REFERER'];
-        $myurl=get_option('siteurl');
+function replacelinks($content)
+{
+    if ($_GET['xurl'])
+    {
+        $referer = $_SERVER['HTTP_REFERER'];
+        $myurl = get_option('siteurl');
         //Just a security measure
-        $m1 = strpos( strtolower(" " .$referer), strtolower($myurl));
-           if($referer ==''){
-            $m1=1;
+        $m1 = strpos(strtolower(" " . $referer), strtolower($myurl));
+        if ($referer == '')
+        {
+            $m1 = 1;
         }
- $url=$_GET['xurl'];
- $url=urldecode($url);
- //block possible code injection attenpts
- $m2 = strpos( " " .$url, "<");
- $m3 = strpos( " " .$url, "$");
-  $m4 = strpos( " " .$url, "'");
-  $m5 = strpos( " " .$url, '"');
-   global $post;
-    $pageurl=get_permalink($post->ID);
-  if($m2 || $m3 || $m4 || $m5){
-    return $content;
-    //someone is trying to inject a code, return contents without modifications
-  }
- if($m1 == 1){ 
-    $d=get_option("exitpagecontents");
-    $c= 10;
-     
-        $mypath = get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname
-        (__file__)) ;
-
-        
-    $d= str_ireplace("%n%",$c,$d);
-    $d= str_ireplace("%link%",$url,$d); 
-       
-     $content = stripcslashes($d);
-     $content .= "<br / ><br / ><p style ='color: red;text-align: center;'><b>Exit page powered by <a href='http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte'> Wordpress Exit Strategy. </a></b></p>";
-     return $content;
- }
-
-   
+        $url = $_GET['xurl'];
+        $url = urldecode($url);
+        //block possible code injection attenpts
+        $m2 = strpos(" " . $url, "<");
+        $m3 = strpos(" " . $url, "$");
+        $m4 = strpos(" " . $url, "'");
+        $m5 = strpos(" " . $url, '"');
+        global $post;
+        $pageurl = get_permalink($post->ID);
+        if ($m2 || $m3 || $m4 || $m5)
+        {
+            return $content;
+            //someone is trying to inject a code, return contents without modifications
         }
-    
-    
+        if ($m1 == 1)
+        {
+            $d = get_option("exitpagecontents");
+            $c = 10;
+
+            $mypath = get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname
+                (__file__));
+
+
+            $d = str_ireplace("%n%", $c, $d);
+            $d = str_ireplace("%link%", $url, $d);
+
+            $content = stripcslashes($d);
+            $content .= "<br / ><br / ><p style ='color: red;text-align: center;'><b>Exit page powered by <a href='http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte'> Wordpress Exit Strategy. </a></b></p>";
+            return $content;
+        }
+
+
+    }
+
+
     preg_match_all('/<a\s[^>]*href\s*=\s*([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU',
-    $content,  $matches);
-    $matches=$matches[0];
+        $content, $matches);
+    $matches = $matches[0];
     global $post;
-    $pageurl=get_permalink($post->ID);
-    $myurl=get_option('siteurl');
-    $serv=$_SERVER['PHP_SELF'];
-foreach($matches as $match){
-    $qref = strpos($match, $myurl);
-$qref2 = strpos($match, "http");
+    $pageurl = get_permalink($post->ID);
+    $myurl = get_option('siteurl');
+    $serv = $_SERVER['PHP_SELF'];
+    foreach ($matches as $match)
+    {
+        $qref = strpos($match, $myurl);
+        $qref2 = strpos($match, "http");
 
-    if (($qref == '') && ($qref2 != '')) {
-        //$xurl=preg_match('\bhttp://[^\s]+)',$match);
-        preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $match, $xurl);
-        $xurl = $xurl[0][0];
-        if(strpos($pageurl,"?")){
-            $xurl2= $pageurl . "&xurl=" . urlencode($xurl);
-            
-        } else {
-            $xurl2= $pageurl . "?xurl=" . urlencode($xurl);
-            
+        if (($qref == '') && ($qref2 != ''))
+        {
+            //$xurl=preg_match('\bhttp://[^\s]+)',$match);
+            preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $match,
+                $xurl);
+            $xurl = $xurl[0][0];
+            if (strpos($pageurl, "?"))
+            {
+                $xurl2 = $pageurl . "&xurl=" . urlencode($xurl);
+
+            } else
+            {
+                $xurl2 = $pageurl . "?xurl=" . urlencode($xurl);
+
+            }
+            $newlink = str_replace($xurl, $xurl2, $match);
+            if (!strpos($newlink, "nofollow"))
+            {
+                $newlink = str_replace("<a ", '<a rel="nofollow" ', $newlink);
+            }
+            $content = str_ireplace($match, $newlink, $content);
         }
-        $newlink = str_replace($xurl,$xurl2 ,$match);
-        if (!strpos($newlink,"nofollow")){
-            $newlink = str_replace("<a ",'<a rel="nofollow" ',$newlink);
-        }
-        $content=str_ireplace($match,$newlink,$content);
-        }
-}
- 
+    }
+
     return $content;
 }
 

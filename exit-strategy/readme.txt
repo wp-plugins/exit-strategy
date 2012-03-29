@@ -6,8 +6,8 @@ Requires at least: 3.0
 Tested up to: 3.2.1
 Stable tag: 1.5
 
-Monetize outgoing links, Get more social bookmarks, & Protect your SEO score. Stop wasting your website potential by not using exit pages.
 
+Turn your outgoing links into easy money, social shares, and viral traffic! using our exit pages system.
 == Description ==
 
 You think youre running your Wordpress site at its full potential? So, whats your Exit Strategy?<br />
@@ -32,7 +32,7 @@ A Pro version is also available with the following Features:
 <li>Shortcodes for Facebook & Google + buttons, for your post or entire site.</li>
 </ul>
 
-<a href=https://secure.avangate.com/order/checkout.php?PRODS=4553833&QTY=1&CART=1>Click here to get Exit Strategy Pro!</a>
+<a href='http://codecanyon.net/item/wordpress-exit-strategy-pro/1573775?ref=AngryByte'>Click here to get Exit Strategy Pro!</a>
 
 == Installation ==
 
