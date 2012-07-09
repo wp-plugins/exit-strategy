@@ -3,14 +3,14 @@
 /**
  * @package Wordpress Exit Strategy
  * @author Bouzid Nazim Zitouni
- * @version 1.52
+ * @version 1.53
  */
 /*
 Plugin Name: Wordpress Exit Strategy
 Plugin URI: http://angrybyte.com/wordpress-plugins/wordpress-exit-strategy/
 Description: Exit Strategy will pass all outgoing links from your site through a nofollow link to an exit page before finally being redirected to the external link. You may place anything in your exit page: Ads, Subscribtion buttons, etc. Using Wordpress Exit Strategy you improve your SEO score by not linking directly to external pages, you get more subscribers & more revenues if you use Ads.
 Author: Bouzid Nazim Zitouni
-Version: 1.52
+Version: 1.53
 Author URI: http://angrybyte.com
 */
 
@@ -272,7 +272,7 @@ function replacelinks($content)
 
         if (($qref == '') && ($qref2 != ''))
         {
-            //$xurl=preg_match('\bhttp://[^\s]+)',$match);
+        
             preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $match,
                 $xurl);
             $xurl = $xurl[0][0];
