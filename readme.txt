@@ -3,7 +3,7 @@ Contributors: Bouzid Nazim Zitouni
 Donate link:http://angrybyte.com/donate
 Tags: exit, link, outgoing, external, seo, ads, facebook, google, twitter, money, adsense, nofollow, viral, redirect
 Requires at least: 3.0
-Tested up to: 3.5.1
+Tested up to: 3.6
 Stable tag: 1.5
 
 
