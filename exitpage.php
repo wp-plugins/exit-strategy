@@ -41,20 +41,13 @@ function exit_page_admin()
     if (($_POST["xx"])&& (is_admin())&& check_admin_referer( 'exit_strategy_save', 'exit_strategy_nonce' ))
     {
         update_option('exitpagecontents', $_POST['xx']);
-        update_option('redirecttoparent', $_POST['redirectpar']);
-
+        update_option('redirecttoparent',sanitize_text_field($_POST['redirectpar']) );
+        
     }
     $oldtemp = stripcslashes(get_option("exitpagecontents"));
-    $chkd = 1;
+    $chkd = "checked='checked'";
     $chkd2 = get_option("redirecttoparent");
-    if ($chkd)
-    {
-        $chkd = "checked='checked'";
 
-    } else
-    {
-        $chkd = "";
-    }
     if ($chkd2)
     {
         $chkd2 = "checked='checked'";
@@ -192,6 +185,7 @@ function autoredirect()
         $m3 = strpos(" " . $url, "$");
         $m4 = strpos(" " . $url, "'");
         $m5 = strpos(" " . $url, '"');
+        $url = sanitize_text_field($url);
         if (!(($m2 || $m3 || $m4 || $m5)) && $m1 == 1 && $redirecting)
         {
 
